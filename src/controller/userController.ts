@@ -1,14 +1,15 @@
 import { createUserFactory } from "../factories/userFactory"
-import { IRequestUser } from "../types/interfaces/requestUser"
+import { userService, UserService } from "../services/userService"
 
-export class UserController {
+class UserController {
+
+    constructor(private readonly userService: UserService) { }
 
     public createUser = async (body: any) => {
         const { name, age, email, password } = body
         const user = createUserFactory({ name, age, email, password })
-
         try {
-            const data = await this.mockCallToDB(user, true)
+            const data = await this.userService.createUserDb(user)
             return data
         } catch (e) {
             return e
@@ -16,20 +17,8 @@ export class UserController {
 
     }
 
-    private mockCallToDB(user: IRequestUser, fail = false): Promise<IRequestUser> {
-
-        return new Promise((resolve, reject) => {
-            if (fail) {
-                reject('user not found')
-                return
-            }
-            setTimeout(() => {
-                resolve(user)
-                return
-            }, 500)
-        })
-    }
 
 }
-
+const userController = new UserController(userService)
+export { UserController, userController }
 
