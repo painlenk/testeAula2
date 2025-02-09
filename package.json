@@ -6,10 +6,13 @@
   "scripts": {
     "build": "ts-node",
     "start": "node dist/index.js",
-    "dev": "tsc && node dist/index.js"
+    "dev": "tsc && node dist/index.js",
+    "test": "jest"
   },
   "devDependencies": {
+    "@jest/globals": "^29.7.0",
     "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   }
